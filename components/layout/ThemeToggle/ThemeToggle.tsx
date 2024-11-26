@@ -1,7 +1,7 @@
 "use client";
+
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
-
 import { Button } from "@/components/ui/Button";
 import {
   DropdownMenu,
@@ -9,9 +9,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/DropdownMenu";
-type CompProps = {};
-export default function ThemeToggle({}: CompProps) {
-  const { setTheme } = useTheme();
+import { IconCheck } from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
+
+export default function ThemeToggle() {
+  const { setTheme, theme } = useTheme();
+
+  console.log(theme);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -22,14 +26,35 @@ export default function ThemeToggle({}: CompProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem
+          onClick={() => setTheme("light")}
+          className={theme === "light" ? "font-medium text-primary" : ""}
+        >
           Light
+          <IconCheck
+            size={14}
+            className={cn("ml-auto", theme !== "light" && "hidden")}
+          />
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem
+          onClick={() => setTheme("dark")}
+          className={theme === "dark" ? "font-medium text-primary" : ""}
+        >
           Dark
+          <IconCheck
+            size={14}
+            className={cn("ml-auto", theme !== "dark" && "hidden")}
+          />
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem
+          onClick={() => setTheme("system")}
+          className={theme === "system" ? "font-medium text-primary" : ""}
+        >
           System
+          <IconCheck
+            size={14}
+            className={cn("ml-auto", theme !== "system" && "hidden")}
+          />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
