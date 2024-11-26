@@ -49,6 +49,7 @@
     "eslint": "8.48.0",
     "eslint-config-next": "^14.0.1",
     "flag-icons": "^7.2.3",
+    "formik": "^2.4.6",
     "kbar": "^0.1.0-beta.45",
     "lucide-react": "^0.447.0",
     "match-sorter": "^6.3.4",
@@ -74,6 +75,7 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^9.0.1",
+    "yup": "^1.4.0",
     "zod": "^3.22.4",
     "zustand": "^4.4.6"
   },
