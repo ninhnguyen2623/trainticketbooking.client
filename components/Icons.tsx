@@ -1,36 +1,46 @@
 import {
   AlertTriangle,
   ArrowRight,
+  Bed,
+  CalendarCheck2,
   Check,
   ChevronLeft,
   ChevronRight,
   CircuitBoardIcon,
   Command,
+  Container,
   CreditCard,
   File,
   FileText,
   HelpCircle,
   Image,
   Laptop,
+  Layers2,
   LayoutDashboardIcon,
   Loader2,
   LogIn,
   LucideIcon,
   LucideProps,
   LucideShoppingBag,
+  Map,
+  MapPinHouse,
   MessagesSquare,
   Moon,
   MoreVertical,
   Pizza,
   Plus,
   Settings,
+  Share2,
+  Sheet,
   SunMedium,
+  Ticket,
   Trash,
   Twitter,
   User,
   UserCircle2Icon,
   UserPen,
   UserX2Icon,
+  Waypoints,
   X
 } from "lucide-react";
 import {
@@ -39,7 +49,7 @@ import {
   GithubOriginal
 } from "devicons-react";
 export type Icon = LucideIcon;
-
+import { FaTrainSubway } from "react-icons/fa6";
 export const Icons = {
   dashboard: LayoutDashboardIcon,
   logo: Command,
@@ -74,5 +84,17 @@ export const Icons = {
   facebook: FacebookOriginal,
   gitHub: GithubOriginal,
   twitter: Twitter,
-  check: Check
+  check: Check,
+  train: FaTrainSubway,
+  plus: Plus,
+  sheet: Sheet,
+  carriage: Container,
+  type: Layers2,
+  seat: Bed,
+  map: Map,
+  station: MapPinHouse,
+  network: Share2,
+  journey: Waypoints,
+  ticket: Ticket,
+  booking: CalendarCheck2
 };
