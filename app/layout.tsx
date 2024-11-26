@@ -10,6 +10,7 @@ import "./globals.css";
 import "flag-icons/css/flag-icons.min.css";
 import StoreProvider from "@/redux/StoreProvider";
 import SessionWrapper from "@/auth/SessionWrapper";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,15 +41,22 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <StoreProvider>
-          <NextIntlClientProvider messages={messages}>
-            <SessionWrapper>
-              <NextTopLoader showSpinner={false} />
-              <Toaster />
-              {children}
-            </SessionWrapper>
-          </NextIntlClientProvider>
-        </StoreProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <StoreProvider>
+            <NextIntlClientProvider messages={messages}>
+              <SessionWrapper>
+                <NextTopLoader showSpinner={false} />
+                <Toaster />
+                {children}
+              </SessionWrapper>
+            </NextIntlClientProvider>
+          </StoreProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
