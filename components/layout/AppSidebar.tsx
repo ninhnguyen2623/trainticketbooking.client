@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger
 } from "@/components/ui/DropdownMenu";
 import {
@@ -37,14 +38,16 @@ import {
   ChevronsUpDown,
   CreditCard,
   House,
-  LogOut
+  LogOut,
+  Settings
 } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Link } from "@/i18n/routing";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import { Icons } from "../Icons";
 import { useTranslations } from "next-intl";
+import clsx from "clsx";
 
 export const company = {
   name: "Admin",
@@ -55,7 +58,28 @@ export const company = {
 export default function AppSidebar() {
   const { data: session } = useSession();
   const pathname = "/" + usePathname().split("/").slice(2).join("/");
+
+  console.log("pathname", pathname);
   const t = useTranslations("Sidebar");
+  const u = useTranslations("UserNav");
+  const activedNavItems = navItems.map((item) => {
+    const hasActiveChild = item.items?.some(
+      (subItem) => pathname === subItem.url
+    );
+
+    const isActive = pathname === item.url || hasActiveChild;
+
+    const updatedItems = item.items?.map((subItem) => ({
+      ...subItem,
+      isActive: pathname === subItem.url
+    }));
+
+    return {
+      ...item,
+      isActive,
+      items: updatedItems
+    };
+  });
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -74,7 +98,7 @@ export default function AppSidebar() {
           <SidebarGroupLabel>{t("title")}</SidebarGroupLabel>
 
           <SidebarMenu>
-            {navItems.map((item) => {
+            {activedNavItems.map((item) => {
               const Icon = item.icon ? Icons[item.icon] : Icons.logo;
               return item?.items && item?.items?.length > 0 ? (
                 <Collapsible
@@ -87,7 +111,7 @@ export default function AppSidebar() {
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton
                         tooltip={item.title}
-                        isActive={pathname === item.url}
+                        isActive={item.isActive}
                       >
                         {item.icon && <Icon />}
                         <span>{item.title}</span>
@@ -95,19 +119,36 @@ export default function AppSidebar() {
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
-                      <SidebarMenuSub>
-                        {item.items?.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem.title}>
-                            <SidebarMenuSubButton
-                              asChild
-                              isActive={pathname === subItem.url}
+                      <SidebarMenuSub className="mr-0 border-l-0 px-0">
+                        {item.items?.map((subItem) => {
+                          const SubIcon = subItem.icon
+                            ? Icons[subItem.icon]
+                            : Icons.logo;
+                          return (
+                            <SidebarMenuSubItem
+                              key={subItem.title}
+                              className="mr-0 px-0"
                             >
-                              <Link href={subItem.url}>
-                                <span>{subItem.title}</span>
-                              </Link>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
+                              <SidebarMenuSubButton
+                                asChild
+                                isActive={subItem.isActive}
+                              >
+                                <Link
+                                  href={subItem.url}
+                                  className={clsx(
+                                    "mx-0 inline-flex !h-10 !w-full items-center justify-start whitespace-nowrap rounded-md",
+                                    {
+                                      "font-medium": subItem.isActive
+                                    }
+                                  )}
+                                >
+                                  <SubIcon />
+                                  <span>{subItem.title}</span>
+                                </Link>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          );
+                        })}
                       </SidebarMenuSub>
                     </CollapsibleContent>
                   </SidebarMenuItem>
@@ -193,21 +234,20 @@ export default function AppSidebar() {
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
                     <BadgeCheck size={20} />
-                    Account
+                    {u("profile")}
+                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <CreditCard size={20} />
-                    Billing
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Bell size={20} />
-                    Notifications
+                    <Settings size={20} />
+                    {u("settings")}
+                    <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => signOut()}>
                   <LogOut size={20} />
-                  Log out
+                  {u("logout")}
+                  <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
