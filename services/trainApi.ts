@@ -1,4 +1,4 @@
-import { Train, TrainApiParams } from "@/interfaces";
+import { Train, ApiParams } from "@/interfaces";
 import { ApiResponse } from "@/interfaces/ApiResponse";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -9,7 +9,7 @@ export const trainApi = createApi({
   }),
   tagTypes: ["Train"], // Tag types for cache management
   endpoints: (builder) => ({
-    getPagedListTrain: builder.query<ApiResponse<Train[]>, TrainApiParams>({
+    getPagedListTrain: builder.query<ApiResponse<Train[]>, ApiParams>({
       query: ({ pageNumber, pageSize }) => ({
         url: "Train/GetPagedListTrain",
         params: { pageNumber, pageSize }
