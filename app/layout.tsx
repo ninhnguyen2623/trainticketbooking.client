@@ -1,28 +1,30 @@
-import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import { Toaster } from '@/components/ui/sonner';
-import NextTopLoader from 'nextjs-toploader';
-import { auth } from '@/auth';
-import Providers from '@/components/layout/providers';
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import { Toaster } from "@/components/ui/Sonner";
+import NextTopLoader from "nextjs-toploader";
 
-import './globals.css';
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+
+import "./globals.css";
+import "flag-icons/css/flag-icons.min.css";
+import StoreProvider from "@/redux/StoreProvider";
+import SessionWrapper from "@/auth/SessionWrapper";
 
 const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900'
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900"
 });
 const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900'
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900"
 });
 
 export const metadata: Metadata = {
-  title: 'App',
-  description: 'app'
+  title: "App",
+  description: "app"
 };
 
 export default async function RootLayout({
@@ -32,20 +34,21 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  const session = await auth();
   const messages = await getMessages();
   return (
     <html lang={locale} suppressHydrationWarning={true}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlClientProvider messages={messages}>
-          <NextTopLoader showSpinner={false} />
-          <Providers session={session}>
-            <Toaster />
-            {children}
-          </Providers>
-        </NextIntlClientProvider>
+        <StoreProvider>
+          <NextIntlClientProvider messages={messages}>
+            <SessionWrapper>
+              <NextTopLoader showSpinner={false} />
+              <Toaster />
+              {children}
+            </SessionWrapper>
+          </NextIntlClientProvider>
+        </StoreProvider>
       </body>
     </html>
   );
