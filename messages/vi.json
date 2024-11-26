@@ -1,1 +1,14 @@
-{}
+{
+  "LocaleSwitcher": {
+    "label": "Ngôn ngữ",
+    "locale": "{locale, select, vi {Tiếng Việt} en {Tiếng Anh} other {Unknown}}"
+  },
+  "Sidebar": {
+    "title": "Tổng quan"
+  },
+  "UserNav": {
+    "profile": "Hồ sơ",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất"
+  }
+}

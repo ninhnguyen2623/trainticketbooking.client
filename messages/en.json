@@ -1,1 +1,14 @@
-{}
+{
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, vi {Vietnamese} en {English} other {Unknown}}"
+  },
+  "Sidebar": {
+    "title": "Overview"
+  },
+  "UserNav": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Log Out"
+  }
+}
