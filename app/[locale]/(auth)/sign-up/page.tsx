@@ -1,6 +1,7 @@
-import { Card } from '@/components/ui/card';
-import SignUpForm from '../_components/SignUpForm';
-import { Link } from '@/i18n/routing';
+"use client";
+import { Card } from "@/components/ui/Card";
+import SignUpForm from "../_components/SignUpForm";
+import { Link } from "@/i18n/routing";
 
 export default function SignUp() {
   return (
@@ -29,7 +30,7 @@ export default function SignUp() {
               </h1>
               <p className="text-sm text-muted-foreground">
                 Enter your email and password to create an account. <br />
-                Already have an account?{' '}
+                Already have an account?{" "}
                 <Link
                   href="/sign-in"
                   className="underline underline-offset-4 hover:text-primary"
@@ -40,14 +41,14 @@ export default function SignUp() {
             </div>
             <SignUpForm />
             <p className="mt-4 px-8 text-center text-sm text-muted-foreground">
-              By creating an account, you agree to our{' '}
+              By creating an account, you agree to our{" "}
               <a
                 href="/terms"
                 className="underline underline-offset-4 hover:text-primary"
               >
                 Terms of Service
-              </a>{' '}
-              and{' '}
+              </a>{" "}
+              and{" "}
               <a
                 href="/privacy"
                 className="underline underline-offset-4 hover:text-primary"
