@@ -1,13 +1,19 @@
+import { carriageApi } from "@/services/carriageApi";
+import { carriageClassApi } from "@/services/carriageClassApi";
+import { provinceApi } from "@/services/provinceApi";
 import { trainApi } from "@/services/trainApi";
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 export const store = configureStore({
   reducer: {
-    [trainApi.reducerPath]: trainApi.reducer
+    [trainApi.reducerPath]: trainApi.reducer,
+    [provinceApi.reducerPath]:provinceApi.reducer,
+    [carriageApi.reducerPath]: carriageApi.reducer,
+    [carriageClassApi.reducerPath]: carriageClassApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(trainApi.middleware)
+    getDefaultMiddleware().concat(trainApi.middleware,provinceApi.middleware,carriageApi.middleware,carriageClassApi.middleware),
 });
 setupListeners(store.dispatch);
 // Infer the type of store

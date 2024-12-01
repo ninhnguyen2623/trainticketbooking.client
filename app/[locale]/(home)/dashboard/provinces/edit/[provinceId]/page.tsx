@@ -1,43 +1,39 @@
 "use client";
 
 import PageContainer from "@/components/layout/PageContainer";
-import TrainForm from "../../components/TrainForm";
-import {
-  useGetTrainByIdQuery,
-  useUpdateTrainMutation
-} from "@/services/trainApi";
+import ProvinceForm from "../../components/ProvinceForm";
+import { useGetProvinceByIdQuery, useUpdateProvinceMutation } from "@/services/provinceApi";
 import FormCardSkeleton from "../../components/FormCardSkeleton";
-import { Train } from "@/interfaces";
 import { toast } from "sonner";
+import { Province } from "@/interfaces";
 
-type PageProps = { params: { trainId: string } };
+type PageProps = { params: { provinceId: string } };
 
-export default function Page({ params: { trainId } }: PageProps) {
+export default function Page({ params: { provinceId } }: PageProps) {
   // Fetch train data by ID
-  const { data, isLoading, isError, refetch } = useGetTrainByIdQuery(trainId);
+  const { data, isLoading, isError, refetch } = useGetProvinceByIdQuery(provinceId);
 
   // Set up the mutation hook for updating the train
-  const [updateTrain] = useUpdateTrainMutation();
+  const [updateProvince] = useUpdateProvinceMutation();
 
   // Handle form submission
-  const handleSubmit = async (values: Train) => {
+  const handleSubmit = async (values: Province) => {
     try {
-      toast.loading("Updating train...", { id: "update-train" });
-
-      const result = await updateTrain(values).unwrap();
+      toast.loading("Updating province...", { id: "update-province" });
+      const result = await updateProvince(values).unwrap();
 
       if (result?.success) {
-        toast.success("Train updated successfully!", { id: "update-train" });
+        toast.success("Province updated successfully!", { id: "update-province" });
         await refetch()
       } else {
-        toast.error("Train update failed. Please try again.", {
-          id: "update-train"
+        toast.error("Province update failed. Please try again.", {
+          id: "update-province"
         });
       }
     } catch (err: any) {
       const errorMessage =
-        err?.message || "An error occurred while updating the train.";
-      toast.error(errorMessage, { id: "update-train" });
+        err?.message || "An error occurred while updating the province.";
+      toast.error(errorMessage, { id: "update-province" });
     }
   };
 
@@ -61,10 +57,10 @@ export default function Page({ params: { trainId } }: PageProps) {
     <PageContainer scrollable>
       <div className="flex-1 space-y-4">
         {/* Render the TrainForm component with the fetched data */}
-        <TrainForm
+        <ProvinceForm
           mode="edit"
           initialData={data?.data}
-          pageTitle={"Edit Train"}
+          pageTitle={"Edit Province"}
           onSubmit={handleSubmit}
         />
       </div>
