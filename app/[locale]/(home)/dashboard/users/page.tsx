@@ -58,7 +58,7 @@ export default function Page({ searchParams }: pageProps) {
                 onPaginationChange={setPagination}
               />
             ) : (
-              <div>No trains found.</div>
+              <div>No users found.</div>
             )}
           </div>
         )}
