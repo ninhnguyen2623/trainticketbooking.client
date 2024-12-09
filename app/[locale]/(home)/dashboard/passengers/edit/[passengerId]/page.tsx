@@ -4,7 +4,7 @@ import PageContainer from "@/components/layout/PageContainer";
 import PassengerForm from "../../components/PassengerForm";
 import FormCardSkeleton from "../../components/FormCardSkeleton";
 import { toast } from "sonner";
-import { Passenger, Passenger } from "@/interfaces";
+import { Passenger } from "@/interfaces";
 import { useState } from "react";
 import { useGetPagedListPassengerTypeQuery } from "@/services/passengerTypeApi";
 import { useGetPassengerByIdQuery, useUpdatePassengerMutation } from "@/services/passengerApi";
