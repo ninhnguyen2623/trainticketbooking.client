@@ -87,21 +87,6 @@ export const columns: ColumnDef<SeatType>[] = [
     }
   },
   {
-    accessorKey: "status",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="status" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-            {row.getValue("status")}
-          </span>
-        </div>
-      );
-    }
-  },
-  {
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />
   }

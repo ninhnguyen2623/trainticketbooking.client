@@ -21,6 +21,7 @@ export default function Page({ params: { seatTypeId } }: PageProps) {
 
   // Handle form submission
   const handleSubmit = async (values: SeatType) => {
+    // console.log('data seat type:', values);
     try {
       toast.loading("Updating seatType...", { id: "update-seatType" });
 

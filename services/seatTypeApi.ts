@@ -31,8 +31,8 @@ export const seatTypeApi = createApi({
     }),
 
     updateSeatType: builder.mutation<ApiResponse<SeatType>, SeatType>({
-      query: ({ id, ...body }) => ({
-        url: `/SeatType/UpdateSeatType/${id}`,
+      query: (body) => ({
+        url: `/SeatType/UpdateSeatType`,
         method: "PUT",
         body
       }),
