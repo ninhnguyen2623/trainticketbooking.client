@@ -32,11 +32,12 @@ export default function Page({ params: { passengerId } }: PageProps) {
 
   // Handle form submission
   const handleSubmit = async (values: Passenger) => {
+
     try {
       toast.loading("Updating Passenger...", { id: "update-Passenger" });
 
       const result = await updatePassenger(values).unwrap();
-      console.log('api result', result);
+
       if (result?.success) {
         toast.success("Passenger updated successfully!", { id: "update-Passenger" });
         await refetch();

@@ -31,7 +31,7 @@ export const passengerApi = createApi({
     
     updatePassenger: builder.mutation<ApiResponse<Passenger>, Passenger>({
       query: ( body ) => ({
-        url: `/Passenger/UpdatePassenger/${body.id}`,
+        url: `Passenger/UpdatePassenger`,
         method: "PUT",
         body
       }),
