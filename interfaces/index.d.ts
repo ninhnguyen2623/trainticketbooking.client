@@ -28,6 +28,20 @@ export interface PassengerType{
   type: string;
   discountPercentage: number;
 }
+export interface TrainJourney {
+  id: number;
+  trainId: number;
+  trainName: string;
+  departureDate: string;
+  arrivalDate: string;
+  status: string;
+}
+export interface SeatType {
+  id: number;
+  type: string;
+  code: string;
+  description: string;
+}
 export interface Carriage {
   id: number;
   carriageClassId: number;

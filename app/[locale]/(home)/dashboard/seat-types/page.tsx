@@ -12,7 +12,7 @@ import { SearchParams } from "nuqs/parsers";
 import { DataTable } from "./components/DataTable";
 import { columns } from "./components/columns";
 import { Link } from "@/i18n/routing";
-import { useGetPagedListPassengerQuery } from "@/services/passengerApi";
+import { useGetPagedListSeatTypeQuery } from "@/services/seatTypeApi";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -25,10 +25,10 @@ export default function Page({ searchParams }: pageProps) {
 
     const [pagination, setPagination] = useState({
         pageIndex: 0,
-        pageSize: 30
+        pageSize: 31
     });
 
-    const { data, isFetching } = useGetPagedListPassengerQuery({
+    const { data, isFetching } = useGetPagedListSeatTypeQuery({
         pageNumber: pagination.pageIndex + 1,
         pageSize: pagination.pageSize
     });
@@ -36,9 +36,9 @@ export default function Page({ searchParams }: pageProps) {
         <PageContainer>
             <div className="space-y-4">
                 <div className="flex items-start justify-between">
-                    <Heading title="Passengers" description="Manage Passengers" />
+                    <Heading title="SeatTypes" description="Manage SeatTypes" />
                     <Link
-                        href="/dashboard/passengers/create"
+                        href="/dashboard/seat-types/create"
                         className={cn(buttonVariants(), "text-xs md:text-sm")}
                     >
                         <Plus className="mr-2 h-4 w-4" /> Add New
@@ -46,7 +46,7 @@ export default function Page({ searchParams }: pageProps) {
                 </div>
                 <Separator />
                 {isFetching ? (
-                    <DataTableSkeleton columnCount={5} rowCount={10} />
+                    <DataTableSkeleton columnCount={4} rowCount={10} />
                 ) : (
                     <div className="-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0">
                         {data ? (
@@ -58,7 +58,7 @@ export default function Page({ searchParams }: pageProps) {
                                 onPaginationChange={setPagination}
                             />
                         ) : (
-                            <div>No passenger found.</div>
+                            <div>No SeatType found.</div>
                         )}
                     </div>
                 )}
