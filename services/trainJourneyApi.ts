@@ -31,8 +31,8 @@ export const trainJourneyApi = createApi({
     }),
 
     updateTrainJourney: builder.mutation<ApiResponse<TrainJourney>, TrainJourney>({
-      query: ({ id, ...body }) => ({
-        url: `/TrainJourney/UpdateTrainJourney/${id}`,
+      query: (body) => ({
+        url: `/TrainJourney/UpdateTrainJourney`,
         method: "PUT",
         body
       }),
