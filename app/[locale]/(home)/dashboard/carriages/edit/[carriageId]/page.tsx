@@ -9,6 +9,8 @@ import { Carriage } from "@/interfaces";
 import { useState } from "react";
 import { useGetPagedListCarriageClassQuery } from "@/services/carriageClassApi";
 import { useGetPagedListTrainQuery } from "@/services/trainApi";
+import type { TabsProps } from 'antd';
+import { Tabs } from 'antd';
 
 type PageProps = { params: { carriageId: string } };
 
@@ -70,6 +72,8 @@ export default function Page({ params: { carriageId } }: PageProps) {
       </PageContainer>
     );
   }
+
+
   return (
     <PageContainer scrollable>
       <div className="flex-1 space-y-4">
@@ -82,6 +86,7 @@ export default function Page({ params: { carriageId } }: PageProps) {
           pageTitle={"Edit Carriage"}
           onSubmit={handleSubmit}
         />
+
       </div>
     </PageContainer>
   );
