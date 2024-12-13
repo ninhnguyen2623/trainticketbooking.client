@@ -3,9 +3,6 @@ import PageContainer from "@/components/layout/PageContainer";
 import TrainForm from "../../components/TrainForm";
 import { useGetTrainByIdQuery } from "@/services/trainApi";
 import FormCardSkeleton from "../../components/FormCardSkeleton";
-<<<<<<< Updated upstream
-
-=======
 import type { TabsProps } from 'antd';
 import { Tabs } from 'antd';
 import { DataTableTrainCarriage } from '@/app/[locale]/(home)/dashboard/trains/components/trainCarriage/DataTableTrainCarriage'
@@ -14,15 +11,12 @@ import { useGetPagedListCarriageQuery } from "@/services/carriageApi";
 import { useState } from "react";
 import { Carriage } from "@/interfaces";
 import { max } from "date-fns";
->>>>>>> Stashed changesimport type { TabsProps } from 'antd';
 import { Tabs } from 'antd';
 type PageProps = { params: { trainId: string } };
 
 export default function Page({ params: { trainId } }: PageProps) {
   const { data, isLoading } = useGetTrainByIdQuery(trainId);
 
-<<<<<<< Updated upstream
-=======
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 1000
@@ -70,23 +64,13 @@ export default function Page({ params: { trainId } }: PageProps) {
       children: 'Content of Tab Pane 3',
     },
   ];
->>>>>>> Stashed changes
   return (
     <PageContainer scrollable>
       <div className="flex-1 space-y-4">
         {isLoading ? (
           <FormCardSkeleton />
         ) : (
-<<<<<<< Updated upstream
-          <TrainForm
-            mode="view"
-            initialData={data?.data}
-            pageTitle={`Detail Train#${data?.data?.id}`}
-            onSubmit={() => { }}
-          />
-=======
           <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
->>>>>>> Stashed changes
         )}
       </div>
     </PageContainer>
