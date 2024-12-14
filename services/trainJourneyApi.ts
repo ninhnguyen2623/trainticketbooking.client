@@ -45,6 +45,20 @@ export const trainJourneyApi = createApi({
         method: "DELETE"
       }),
       invalidatesTags: [{ type: "TrainJourney", id: "LIST" }]
+    }),
+
+    syncTrainJourneys: builder.mutation<ApiResponse<string>, { departureDate: string; trainIds: number[] }>({
+      query: (body) => ({
+        url: "/TrainJourney/SyncTrainJourneys/sync",
+        method: "POST",
+        body
+      })
+    }),
+    getTrainsWithJourneys: builder.query<ApiResponse<{ trainId: number; trainName: string; trainType: string; selected: boolean }[]>, string>({
+      query: (date) => ({
+        url: `/TrainJourney/GetTrainsWithJourneys/trains-with-journeys`,
+        params: { date }
+      })
     })
   })
 });
@@ -54,5 +68,8 @@ export const {
   useGetTrainJourneyByIdQuery,
   useCreateTrainJourneyMutation,
   useUpdateTrainJourneyMutation,
-  useDeleteTrainJourneyMutation
+  useDeleteTrainJourneyMutation,
+  useSyncTrainJourneysMutation,
+  useGetTrainsWithJourneysQuery
+
 } = trainJourneyApi;
