@@ -3,11 +3,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/Badge";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { DataTableColumnHeader } from "@/components/datatable/DataTableColumnHeader";
-import { DataTableRowActions } from "./DataTableRowActions";
+import { DataTableRowActionsTrainRoute } from "./DataTableRowActionsTrainRoute";
 
-import { RailwayNetwork } from "@/interfaces";
+import { TrainRoute } from "@/interfaces";
 
-export const columns: ColumnDef<RailwayNetwork>[] = [
+export const trainRouteColumns: ColumnDef<TrainRoute>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -42,19 +42,39 @@ export const columns: ColumnDef<RailwayNetwork>[] = [
     enableHiding: false
   },
   {
-    accessorKey: "name",
+    accessorKey: "startStationName",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
+      <DataTableColumnHeader column={column} title="Start Station" />
     ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-            {row.getValue("name")}
-          </span>
-        </div>
-      );
-    }
+    cell: ({ row }) => <div>{row.getValue("startStationName")}</div>,
+  },
+  {
+    accessorKey: "endStationName",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="End Station" />
+    ),
+    cell: ({ row }) => <div>{row.getValue("endStationName")}</div>,
+  },
+  {
+    accessorKey: "arrivalTime",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Arrival" />
+    ),
+    cell: ({ row }) => <div>{row.getValue("arrivalTime")}</div>,
+  },
+  {
+    accessorKey: "departureTime",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Departure" />
+    ),
+    cell: ({ row }) => <div>{row.getValue("departureTime")}</div>,
+  },
+  {
+    accessorKey: "distance",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Distance (km)" />
+    ),
+    cell: ({ row }) => <div>{row.getValue("distance")} km</div>,
   },
   {
     accessorKey: "status",
@@ -69,6 +89,6 @@ export const columns: ColumnDef<RailwayNetwork>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />
+    cell: ({ row }) => <DataTableRowActionsTrainRoute row={row} />
   }
 ];

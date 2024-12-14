@@ -6,16 +6,23 @@ import FormCardSkeleton from "../../components/FormCardSkeleton";
 import type { TabsProps } from 'antd';
 import { Tabs } from 'antd';
 import { DataTableTrainCarriage } from '@/app/[locale]/(home)/dashboard/trains/components/trainCarriage/DataTableTrainCarriage'
-import { trainCarriageColumns } from "../../components/trainCarriage/trainCarriageColumns";
+import { DataTableTrainRoute } from '@/app/[locale]/(home)/dashboard/trains/components/trainRoute/DataTableTrainRoute'
+import { trainRouteColumns } from "../../components/trainRoute/trainRouteColumns";
 import { useGetPagedListCarriageQuery } from "@/services/carriageApi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Carriage } from "@/interfaces";
 import { max } from "date-fns";
-import { Tabs } from 'antd';
+import { useGetRoutesByTrainIdQuery } from "@/services/trainRoute";
+import { trainCarriageColumns } from "../../components/trainCarriage/trainCarriageColumns";
+import { DataTableSkeleton } from "@/components/ui/table/DataTableSkeleton";
 type PageProps = { params: { trainId: string } };
 
 export default function Page({ params: { trainId } }: PageProps) {
   const { data, isLoading } = useGetTrainByIdQuery(trainId);
+  const { data: dataRoute, error, refetch: refetchRoutes, isFetching: routeFetching } = useGetRoutesByTrainIdQuery(parseInt(trainId));
+  useEffect(() => {
+    refetchRoutes();
+  }, [refetchRoutes]);
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -61,7 +68,28 @@ export default function Page({ params: { trainId } }: PageProps) {
     {
       key: '3',
       label: 'Route',
-      children: 'Content of Tab Pane 3',
+      children:
+        <div>
+          {isFetching ? (
+            <DataTableSkeleton columnCount={4} rowCount={10} />
+          ) : (
+            <div className="-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0">
+              {data ? (
+                <DataTableTrainRoute
+                  data={dataRoute?.data || []}
+                  columns={trainRouteColumns}
+                  totalItems={datalistTrainCarriage?.totalItems || 0}
+                  pagination={pagination}
+                  onPaginationChange={setPagination}
+                />
+              ) : (
+                <div>No Train Route found.</div>
+              )}
+            </div>
+          )}
+        </div>
+
+      ,
     },
   ];
   return (

@@ -46,6 +46,27 @@ export interface Station {
   id: number;
   name: string;
   code: string;
+  ggMapLink: string;
+  latitude: number;
+  longitude: number;
+  provinceId: number;
+}
+
+export interface TrainRoute {
+  id: number; // Unique identifier for the railway network
+  distance: number; // Distance in kilometers or meters
+  arrivalTime: string; // Arrival time in HH:mm:ss format
+  departureTime: string; // Departure time in HH:mm:ss format
+  status: string; // Status of the train or operation (e.g., "Active")
+  dateNumber: number; // Date as a numeric value, possibly representing a specific day
+  stationNumber: number; // Identifier for the station
+  trainId: number; // Unique identifier for the train
+  trainName: string; // Name of the train
+  trainType: string; // Type of the train (e.g., "Tàu tốc hành nhanh")
+  startStationId: number; // ID of the starting station
+  startStationName: string; // Name of the starting station
+  endStationId: number; // ID of the ending station
+  endStationName: string; // Name of the ending station
 }
 export interface RailwayNetwork {
   id: number;
