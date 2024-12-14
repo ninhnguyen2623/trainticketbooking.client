@@ -42,6 +42,11 @@ export interface SeatType {
   code: string;
   description: string;
 }
+export interface Station {
+  id: number;
+  name: string;
+  code: string;
+}
 export interface RailwayNetwork {
   id: number;
   name: string;

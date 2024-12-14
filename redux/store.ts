@@ -5,6 +5,7 @@ import { passengerTypeApi } from "@/services/passengerTypeApi";
 import { provinceApi } from "@/services/provinceApi";
 import { railwayNetworkApi } from "@/services/railwayNetworkApi";
 import { seatTypeApi } from "@/services/seatTypeApi";
+import { stationApi } from "@/services/stationApi";
 import { trainApi } from "@/services/trainApi";
 import { trainJourneyApi } from "@/services/trainJourneyApi";
 import { configureStore } from "@reduxjs/toolkit";
@@ -20,7 +21,8 @@ export const store = configureStore({
     [passengerTypeApi.reducerPath]: passengerTypeApi.reducer,
     [trainJourneyApi.reducerPath]: trainJourneyApi.reducer,
     [seatTypeApi.reducerPath]: seatTypeApi.reducer,
-    [railwayNetworkApi.reducerPath]: railwayNetworkApi.reducer
+    [railwayNetworkApi.reducerPath]: railwayNetworkApi.reducer,
+    [stationApi.reducerPath]: stationApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -32,7 +34,8 @@ export const store = configureStore({
       passengerTypeApi.middleware,
       trainJourneyApi.middleware,
       seatTypeApi.middleware,
-      railwayNetworkApi.middleware
+      railwayNetworkApi.middleware,
+      stationApi.middleware
     
     )
 });
