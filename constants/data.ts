@@ -207,24 +207,24 @@ export const navItems: NavItem[] = [
       }
     ]
   },
-  {
-    title: "Seats",
-    url: "/dashboard/seats",
-    icon: "seat",
-    isActive: false,
-    items: [
-      {
-        title: "Seat List",
-        url: "/dashboard/seats",
-        icon: "sheet"
-      },
-      {
-        title: "Add Seat",
-        url: "/dashboard/seats/create",
-        icon: "add"
-      }
-    ]
-  },
+  // {
+  //   title: "Seats",
+  //   url: "/dashboard/seats",
+  //   icon: "seat",
+  //   isActive: false,
+  //   items: [
+  //     {
+  //       title: "Seat List",
+  //       url: "/dashboard/seats",
+  //       icon: "sheet"
+  //     },
+  //     {
+  //       title: "Add Seat",
+  //       url: "/dashboard/seats/create",
+  //       icon: "add"
+  //     }
+  //   ]
+  // },
   {
     title: "Seat Types",
     url: "/dashboard/seat-types",

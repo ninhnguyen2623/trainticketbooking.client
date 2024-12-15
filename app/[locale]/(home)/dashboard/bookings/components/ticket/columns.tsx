@@ -3,11 +3,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/Badge";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { DataTableColumnHeader } from "@/components/datatable/DataTableColumnHeader";
-import { DataTableRowActionsTrainCarriage } from "./DataTableRowActionsTrainCarriage";
+import { DataTableRowActions } from "./DataTableRowActions";
 
-import { Carriage } from "@/interfaces";
+import { Ticket } from "@/interfaces";
 
-export const trainCarriageColumns: ColumnDef<Carriage>[] = [
+export const columns: ColumnDef<Ticket>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -35,44 +35,70 @@ export const trainCarriageColumns: ColumnDef<Carriage>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Id" />
+      <DataTableColumnHeader column={column} title="Id Ticket" />
     ),
     cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     enableSorting: true,
     enableHiding: false
   },
   {
-    accessorKey: "carriageNumber",
+    accessorKey: "bookingDate",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="CarriageNumber" />
+      <DataTableColumnHeader column={column} title="Booking Date" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
           <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-            {row.getValue("carriageNumber")}
+            {row.getValue("bookingDate")}
           </span>
         </div>
       );
     }
   },
   {
-    accessorKey: "carriageClass",
+    accessorKey: "price",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="CarriageClass" />
+      <DataTableColumnHeader column={column} title="Price" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
           <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-            {row.getValue("carriageClass")}
+            {row.getValue("price")}
           </span>
         </div>
       );
     }
+  },
+  // {
+  //   accessorKey: "passenger",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="passenger" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     return (
+  //       <div className="flex space-x-2">
+  //         <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
+  //           {row.getValue("passenger")}
+  //         </span>
+  //       </div>
+  //     );
+  //   }
+  // },
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    cell: ({ row }) => {
+      const status = row.getValue<string>("status");
+      const variant = status === "Pending" ? "default" : "destructive"; // Map status to valid variant
+      return <Badge variant={variant}>{status}</Badge>;
+    },
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActionsTrainCarriage row={row} />
+    cell: ({ row }) => <DataTableRowActions row={row} />
   }
 ];

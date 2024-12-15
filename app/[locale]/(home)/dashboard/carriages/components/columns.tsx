@@ -72,21 +72,6 @@ export const columns: ColumnDef<Carriage>[] = [
     }
   },
   {
-    accessorKey: "trainId",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="trainId" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-            {row.getValue("trainId")}
-          </span>
-        </div>
-      );
-    }
-  },
-  {
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />
   }

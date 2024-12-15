@@ -3,11 +3,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/Badge";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { DataTableColumnHeader } from "@/components/datatable/DataTableColumnHeader";
-import { DataTableRowActionsTrainCarriage } from "./DataTableRowActionsTrainCarriage";
+import { DataTableRowActions } from "./DataTableRowActions";
 
-import { Carriage } from "@/interfaces";
+import { Booking } from "@/interfaces";
 
-export const trainCarriageColumns: ColumnDef<Carriage>[] = [
+export const columns: ColumnDef<Booking>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -42,37 +42,78 @@ export const trainCarriageColumns: ColumnDef<Carriage>[] = [
     enableHiding: false
   },
   {
-    accessorKey: "carriageNumber",
+    accessorKey: "startStation",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="CarriageNumber" />
+      <DataTableColumnHeader column={column} title="StartStation" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
           <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-            {row.getValue("carriageNumber")}
+            {row.getValue("startStation")}
           </span>
         </div>
       );
     }
   },
   {
-    accessorKey: "carriageClass",
+    accessorKey: "endStation",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="CarriageClass" />
+      <DataTableColumnHeader column={column} title="EndStation" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
           <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-            {row.getValue("carriageClass")}
+            {row.getValue("endStation")}
           </span>
         </div>
       );
     }
+  },
+  {
+    accessorKey: "departureDate",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="DepartureDate" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
+            {row.getValue("departureDate")}
+          </span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: "totalPrice",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="TotalPrice" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
+            {row.getValue("totalPrice")}
+          </span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    cell: ({ row }) => {
+      const status = row.getValue<string>("status");
+      const variant = status === "Pending" ? "default" : "destructive"; // Map status to valid variant
+      return <Badge variant={variant}>{status}</Badge>;
+    },
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActionsTrainCarriage row={row} />
+    cell: ({ row }) => <DataTableRowActions row={row} />
   }
 ];

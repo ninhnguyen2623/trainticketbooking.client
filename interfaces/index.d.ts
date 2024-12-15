@@ -15,14 +15,7 @@ export interface CarriageClass{
   id: number;
   name: string;
 }
-export interface Passenger{
-  id: number;
-  fullName: string;
-  passengerTypeId: number;
-  identityCardNumber: string;
-  passengerTypeName: string;
-  discountPercentage: number;
-}
+
 export interface PassengerType{
   id: number;
   type: string;
@@ -83,4 +76,47 @@ export interface Carriage {
 export interface ApiParams {
   pageNumber: number;
   pageSize: number;
+}
+export interface Booking {
+  id: number;
+  bookingTime: string; // ISO 8601 date string
+  totalPrice: number;
+  startStationCode: string; // ISO 8601 date string
+  startStation: string;
+  endStationCode:string
+  endStation: string;
+  status: string; // Adjust this to an enum if the statuses are predefined
+  departureDate: string; // ISO 8601 date string
+  tickets: Ticket[];
+}
+
+export interface Ticket {
+  ticketId: number;
+  price: number;
+  bookingDate: string; // ISO 8601 date string
+  departureDate: string; // ISO 8601 date string
+  status: string; // Adjust this to an enum if the statuses are predefined
+  seatId: number;
+  seatNumber: string;
+  seatType: string;
+  carriageName: string;
+  trainName: string;
+  startStationName: string;
+  endStationName: string;
+  isDeparture: boolean;
+  passenger: Passenger2;
+}
+export interface Passenger2 {
+  passengerId: number;
+  fullName: string;
+  identityCardNumber: string;
+  passengerType: string; // Adjust this to an enum if the types are predefined
+}
+export interface Passenger{
+  id: number;
+  fullName: string;
+  passengerTypeId: number;
+  identityCardNumber: string;
+  passengerTypeName: string;
+  discountPercentage: number;
 }
