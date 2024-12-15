@@ -17,7 +17,7 @@ type PageProps = { params: { booingId: string } };
 export default function Page({ params: { booingId } }: PageProps) {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 30
+    pageSize: 1000
   });
   const { data: dataStation, isFetching: isFetchingTrain } = useGetPagedListStationQuery({
     pageNumber: pagination.pageIndex + 1,
@@ -34,7 +34,7 @@ export default function Page({ params: { booingId } }: PageProps) {
             mode="view"
             initialData={data?.data}
             listdataStation={dataStation?.data}
-            pageTitle={`Detail Carriage#${data?.data?.id}`}
+            pageTitle={`Detail Booking#${data?.data?.id}`}
             onSubmit={() => { }}
           />
         )}

@@ -16,6 +16,16 @@ import { RailwayNetwork, Train } from "@/interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/Select";
+import { ScrollArea } from "@/components/ui/ScrollArea";
 
 const formSchema = z.object({
   id: z.number(),
@@ -120,14 +130,31 @@ export default function RailwayNetworkForm({
                 name="status"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>RailwayNetwork status En</FormLabel>
+                    <FormLabel>status</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Enter RailwayNetwork status en"
-                        readOnly={isViewMode}
-                        className={isViewMode ? "cursor-not-allowed" : ""}
-                      />
+                      <Select
+                        value={field.value?.toString()}
+                        onValueChange={(value) => {
+                          field.onChange((value)); // Gán id cho field trainId
+                        }}
+                        disabled={isViewMode}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select Train" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <ScrollArea>
+                            <SelectGroup>
+                              <SelectItem value="Active">
+                                Actived
+                              </SelectItem>
+                              <SelectItem value="Failed">
+                                Failted
+                              </SelectItem>
+                            </SelectGroup>
+                          </ScrollArea>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

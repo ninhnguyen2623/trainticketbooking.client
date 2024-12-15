@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/Checkbox";
 import { DataTableColumnHeader } from "@/components/datatable/DataTableColumnHeader";
 import { DataTableRowActions } from "./DataTableRowActions";
 
-import { Ticket } from "@/interfaces";
+import { Passenger2, Ticket } from "@/interfaces";
 
 export const columns: ColumnDef<Ticket>[] = [
   {
@@ -71,21 +71,23 @@ export const columns: ColumnDef<Ticket>[] = [
       );
     }
   },
-  // {
-  //   accessorKey: "passenger",
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="passenger" />
-  //   ),
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="flex space-x-2">
-  //         <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-  //           {row.getValue("passenger")}
-  //         </span>
-  //       </div>
-  //     );
-  //   }
-  // },
+  {
+    accessorKey: "passenger",
+
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="passenger" />
+    ),
+    cell: ({ row }) => {
+      const passenger = row.getValue("passenger") as Passenger2;
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
+            {passenger?.passengerId} - {passenger?.fullName}
+          </span>
+        </div>
+      );
+    }
+  },
   {
     accessorKey: "status",
     header: ({ column }) => (
@@ -93,7 +95,7 @@ export const columns: ColumnDef<Ticket>[] = [
     ),
     cell: ({ row }) => {
       const status = row.getValue<string>("status");
-      const variant = status === "Pending" ? "default" : "destructive"; // Map status to valid variant
+      const variant = status === "Booked" ? "default" : "destructive"; // Map status to valid variant
       return <Badge variant={variant}>{status}</Badge>;
     },
   },
