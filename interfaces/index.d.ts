@@ -83,6 +83,8 @@ export interface Booking {
   totalPrice: number;
   startStationCode: string; // ISO 8601 date string
   startStation: string;
+  startStationId:number;
+  endStationId: number; // ISO 8601 date string
   endStationCode:string
   endStation: string;
   status: string; // Adjust this to an enum if the statuses are predefined
@@ -100,11 +102,16 @@ export interface Ticket {
   seatNumber: string;
   seatType: string;
   carriageName: string;
+  trainId: number;
   trainName: string;
   startStationName: string;
   endStationName: string;
   isDeparture: boolean;
-  passenger: Passenger2;
+  passenger: Passenger;
+  seatReturnId: number;
+  seatReturnPrice: number;
+  seatReturnDepartureDate: string;
+
 }
 export interface Passenger2 {
   passengerId: number;
@@ -112,11 +119,29 @@ export interface Passenger2 {
   identityCardNumber: string;
   passengerType: string; // Adjust this to an enum if the types are predefined
 }
-export interface Passenger{
+export class Passenger {
   id: number;
+  passengerId: number;
   fullName: string;
   passengerTypeId: number;
   identityCardNumber: string;
   passengerTypeName: string;
   discountPercentage: number;
+
+  constructor(
+    id: number,
+    fullName: string,
+    passengerTypeId: number,
+    identityCardNumber: string,
+    passengerTypeName: string,
+    discountPercentage: number
+  ) {
+    this.id = id;
+    this.passengerId = id; // passengerId tự động bằng id
+    this.fullName = fullName;
+    this.passengerTypeId = passengerTypeId;
+    this.identityCardNumber = identityCardNumber;
+    this.passengerTypeName = passengerTypeName;
+    this.discountPercentage = discountPercentage;
+  }
 }

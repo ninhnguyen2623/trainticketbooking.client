@@ -30,7 +30,7 @@ export default function Page({ searchParams }: pageProps) {
         pageSize: 20
     });
 
-    const { data, isFetching } = useGetPagedListBookingQuery({
+    const { data, isFetching, } = useGetPagedListBookingQuery({
         pageNumber: pagination.pageIndex + 1,
         pageSize: pagination.pageSize
     });

@@ -77,10 +77,23 @@ export const columns: ColumnDef<Booking>[] = [
       <DataTableColumnHeader column={column} title="DepartureDate" />
     ),
     cell: ({ row }) => {
+      const departureDate = row.getValue("departureDate") as string | null;
+
+      // Định dạng ngày
+      const formattedDate = departureDate
+        ? (() => {
+          const date = new Date(departureDate); // Tạo đối tượng Date từ chuỗi
+          const day = String(date.getUTCDate()).padStart(2, "0"); // Lấy ngày (dd)
+          const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Lấy tháng (mm)
+          const year = date.getUTCFullYear(); // Lấy năm (yyyy)
+          return `${day}/${month}/${year}`; // Kết hợp thành chuỗi dd:mm:yyyy
+        })()
+        : "N/A"; // Nếu giá trị không tồn tại, hiển thị "N/A"
+
       return (
         <div className="flex space-x-2">
           <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-            {row.getValue("departureDate")}
+            {formattedDate}
           </span>
         </div>
       );

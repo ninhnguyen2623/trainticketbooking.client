@@ -8,13 +8,22 @@ import { useGetPagedListTrainQuery } from "@/services/trainApi";
 import { useState } from "react";
 import { useCreateBookingMutation } from "@/services/bookingApi";
 import { useGetPagedListStationQuery } from "@/services/stationApi";
+import { useGetPagedListPassengerQuery } from "@/services/passengerApi";
 
 export default function Page() {
     const [pagination, setPagination] = useState({
         pageIndex: 0,
-        pageSize: 30
+        pageSize: 1000
     });
-    const { data: dataStation, isFetching: isFetchingTrain } = useGetPagedListStationQuery({
+    const { data: dataStation, isFetching: isFetchingStation } = useGetPagedListStationQuery({
+        pageNumber: pagination.pageIndex + 1,
+        pageSize: pagination.pageSize
+    });
+    const { data: dataPassenger, isFetching: isFetchingPassenger } = useGetPagedListPassengerQuery({
+        pageNumber: pagination.pageIndex + 1,
+        pageSize: pagination.pageSize
+    });
+    const { data: dataTrain, isFetching: isFetchingTrain } = useGetPagedListTrainQuery({
         pageNumber: pagination.pageIndex + 1,
         pageSize: pagination.pageSize
     });
@@ -50,6 +59,8 @@ export default function Page() {
                         mode="create"
                         initialData={null}
                         listdataStation={dataStation?.data}
+                        listdataPassenger={dataPassenger?.data}
+                        listdataTrain={dataTrain?.data}
                         pageTitle={"Create Booking"}
                         onSubmit={handleSubmit}
                     />

@@ -18,10 +18,10 @@ export function DataTableToolbar<TData>({
       <div className="flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2">
         <div className="flex flex-row gap-x-2">
           <Input
-            placeholder="Filter trainId..."
-            value={(table.getColumn("trainId")?.getFilterValue() as string) ?? ""}
+            placeholder="Filter start station ..."
+            value={(table.getColumn("startStation")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("trainId")?.setFilterValue(event.target.value)
+              table.getColumn("startStation")?.setFilterValue(event.target.value)
             }
             className="h-8 w-[150px] lg:w-[250px]"
           />

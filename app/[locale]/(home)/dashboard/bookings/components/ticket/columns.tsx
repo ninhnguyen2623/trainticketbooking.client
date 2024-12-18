@@ -33,11 +33,11 @@ export const columns: ColumnDef<Ticket>[] = [
     enableHiding: false
   },
   {
-    accessorKey: "id",
+    accessorKey: "ticketId",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Id Ticket" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue("ticketId")}</div>,
     enableSorting: true,
     enableHiding: false
   },
@@ -47,10 +47,23 @@ export const columns: ColumnDef<Ticket>[] = [
       <DataTableColumnHeader column={column} title="Booking Date" />
     ),
     cell: ({ row }) => {
+      const departureDate = row.getValue("bookingDate") as string | null;
+
+      // Định dạng ngày
+      const formattedDate = departureDate
+        ? (() => {
+          const date = new Date(departureDate); // Tạo đối tượng Date từ chuỗi
+          const day = String(date.getUTCDate()).padStart(2, "0"); // Lấy ngày (dd)
+          const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Lấy tháng (mm)
+          const year = date.getUTCFullYear(); // Lấy năm (yyyy)
+          return `${day}/${month}/${year}`; // Kết hợp thành chuỗi dd:mm:yyyy
+        })()
+        : "N/A"; // Nếu giá trị không tồn tại, hiển thị "N/A"
+
       return (
         <div className="flex space-x-2">
           <span className="max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]">
-            {row.getValue("bookingDate")}
+            {formattedDate}
           </span>
         </div>
       );
@@ -98,9 +111,5 @@ export const columns: ColumnDef<Ticket>[] = [
       const variant = status === "Booked" ? "default" : "destructive"; // Map status to valid variant
       return <Badge variant={variant}>{status}</Badge>;
     },
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />
   }
 ];

@@ -150,7 +150,7 @@ export default function PassengerForm({
                                 name="passengerTypeId"
                                 render={({ field }) => (
                                     <FormItem >
-                                        <FormLabel>Train</FormLabel>
+                                        <FormLabel>Passenge Type</FormLabel>
                                         <FormControl>
                                             <Select
                                                 value={field.value?.toString() || listdataPassengerType?.[0]?.id.toString()}
