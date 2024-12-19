@@ -22,12 +22,13 @@ import {
 import { ScrollArea } from "@/components/ui/ScrollArea";
 import { Input } from "@/components/ui/Input";
 import { Link } from "@/i18n/routing";
-import { Carriage, CarriageClass, Train } from "@/interfaces";
+import { Carriage, CarriageClass, Seat, Train } from "@/interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Value } from "@radix-ui/react-select";
 import { useEffect } from "react";
+import { Table, Button as AntButton } from "antd"; // Import thêm các thành phần từ Ant Design
 
 const formSchema = z.object({
     id: z.number(),
@@ -43,6 +44,7 @@ export default function CarriageForm({
     initialData,
     listdataCarriageClass,
     listdataTrain,
+    listdataSeat,
     pageTitle,
     mode,
     onSubmit
@@ -50,6 +52,7 @@ export default function CarriageForm({
     initialData: Carriage | null | undefined;
     listdataCarriageClass: CarriageClass[] | undefined;
     listdataTrain: Train[] | undefined;
+    listdataSeat: Seat[] | undefined;
     pageTitle: string;
     mode: FormMode;
     onSubmit: (values: z.infer<typeof formSchema>) => void;
@@ -84,7 +87,29 @@ export default function CarriageForm({
             form.setValue("carriageClassId", selectedClass.id);
         }
     }, [form.getValues("carriageClass"), listdataCarriageClass, form]);
+    const columns = [
+        {
+            title: "Seat ID",
+            dataIndex: "id",
+            key: "id",
+        },
+        {
+            title: "seatNumber",
+            key: "seatNumber",
+            dataIndex: "seatNumber",
 
+        },
+        {
+            title: "Seat Type",
+            dataIndex: "seatTypeName",
+            key: "seatTypeName",
+        },
+        {
+            title: "Status ",
+            dataIndex: "status",
+            key: "status",
+        },
+    ];
     return (
         <Card className="mx-auto w-full">
             <CardHeader>
@@ -219,7 +244,20 @@ export default function CarriageForm({
                             {/* Name en Field */}
 
                         </div>
-
+                        {isViewMode && (
+                            <div className="">
+                                <CardHeader>
+                                    <CardTitle className="text-left text-2xl font-bold">
+                                        Seat In Carriage
+                                    </CardTitle>
+                                </CardHeader>
+                                <Table
+                                    dataSource={listdataSeat}
+                                    columns={columns}
+                                    rowKey="id"
+                                />
+                            </div>
+                        )}
                         <div className="flex space-x-4">
                             <Link href="/dashboard/carriages">
                                 <Button variant="secondary">Back</Button>

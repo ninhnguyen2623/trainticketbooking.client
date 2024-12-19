@@ -6,13 +6,14 @@ import CarriageForm from "../../components/CarriageForm";
 import { useState } from "react";
 import { useGetPagedListCarriageClassQuery } from "@/services/carriageClassApi";
 import { useGetPagedListTrainQuery } from "@/services/trainApi";
+import { useGetSeatsByCarriageIdQuery } from "@/services/seatApi";
 
 type PageProps = { params: { carriageId: string } };
 
 export default function Page({ params: { carriageId } }: PageProps) {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 30
+    pageSize: 1000
   });
   const { data: dataCarriageClass, isFetching } = useGetPagedListCarriageClassQuery({
     pageNumber: pagination.pageIndex + 1,
@@ -22,6 +23,7 @@ export default function Page({ params: { carriageId } }: PageProps) {
     pageNumber: pagination.pageIndex + 1,
     pageSize: pagination.pageSize
   });
+  const { data: dataSeat, isFetching: isFetchingSeat } = useGetSeatsByCarriageIdQuery({ carriageId });
   const { data, isLoading } = useGetCarriageByIdQuery(carriageId);
   return (
     <PageContainer scrollable>
@@ -32,6 +34,7 @@ export default function Page({ params: { carriageId } }: PageProps) {
           <CarriageForm
             mode="view"
             initialData={data?.data}
+            listdataSeat={dataSeat?.data}
             listdataCarriageClass={dataCarriageClass?.data}
             listdataTrain={dataTrain?.data}
             pageTitle={`Detail Carriage#${data?.data?.id}`}

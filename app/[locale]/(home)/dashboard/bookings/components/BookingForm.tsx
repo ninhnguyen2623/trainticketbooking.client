@@ -173,9 +173,12 @@ export default function BookingForm({
         (item) => item.fullName === formPassenger.getValues("fullName")
     );
     const selectedTrain = listdataTrain?.find(
-        (item) => item.name === formTicket.getValues("trainName")
+        (item) => item.id === formTicket.getValues("trainId")
     );
-    if (selectedStartStation && selectedEndStation && selectedPassenger && selectedTrain) {
+    if (selectedTrain) {
+        formTicket.setValue("trainName", selectedTrain.name);
+    }
+    if (selectedStartStation && selectedEndStation && selectedPassenger) {
         form.setValue("startStationCode", selectedStartStation.code);
         form.setValue("endStationCode", selectedEndStation.code);
         form.setValue("startStationId", selectedStartStation.id);
@@ -199,9 +202,6 @@ export default function BookingForm({
         formPassenger.setValue("identityCardNumber", selectedPassenger.identityCardNumber);
         formPassenger.setValue("passengerTypeName", selectedPassenger.passengerTypeName);
         formPassenger.setValue("discountPercentage", selectedPassenger.discountPercentage);
-        formTicket.setValue("trainId", selectedTrain.id);
-        // console.log("trainid", formTicket.getValues("trainId"));
-
     }
     // Thêm vé vào danh sách
     const handleAddTicket = (ticket: Ticket) => {
@@ -467,10 +467,6 @@ export default function BookingForm({
                                     </FormItem>
                                 )}
                             />
-
-
-                            {/* Name en Field */}
-
                         </div>
                         {!isViewMode && (
                             <div className="">
@@ -584,27 +580,28 @@ export default function BookingForm({
                                     />
                                     <FormField
                                         control={formTicket.control}
-                                        name="trainName"
+                                        name="trainId"
                                         render={({ field }) => (
-                                            <FormItem>
+                                            <FormItem >
                                                 <FormLabel>Train</FormLabel>
                                                 <FormControl>
                                                     <Select
-                                                        value={field.value?.toString()}
+                                                        value={field.value?.toString() || listdataTrain?.[0]?.id.toString()}
                                                         onValueChange={(value) => {
-
-                                                            field.onChange(value); // Gán id cho field trainId
+                                                            const selectedTrain = listdataTrain?.find(
+                                                                (item) => item.id.toString() === value
+                                                            );
+                                                            field.onChange(parseInt(value)); // Gán id cho field trainId
                                                         }}
-                                                        disabled={isViewMode}
                                                     >
-                                                        <SelectTrigger className="w-full">
+                                                        <SelectTrigger className="w-full" disabled={isViewMode}>
                                                             <SelectValue placeholder="Select Train" />
                                                         </SelectTrigger>
                                                         <SelectContent className="h-80 overflow-auto">
                                                             <ScrollArea>
                                                                 <SelectGroup>
                                                                     {listdataTrain?.map((item) => (
-                                                                        <SelectItem key={item.id} value={item.name}>
+                                                                        <SelectItem key={item.id} value={item.id.toString()}>
                                                                             {`${item.id} - ${item.name}`}
 
                                                                         </SelectItem>
@@ -634,7 +631,7 @@ export default function BookingForm({
                                                 seatId: parseInt(formTicket.getValues("seatNumber").toString()), // Giá trị mẫu
                                                 seatType: "", // Giá trị mẫu
                                                 carriageName: "",
-                                                trainId: 1,// Giá trị mẫu
+                                                trainId: parseInt(formTicket.getValues("trainId").toString()),// Giá trị mẫu
                                                 trainName: formTicket.getValues("trainName"), // Giá trị mẫu
                                                 startStationName: "", // Giá trị mẫu
                                                 endStationName: "", // Giá trị mẫu

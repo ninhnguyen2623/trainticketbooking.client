@@ -29,6 +29,15 @@ export interface TrainJourney {
   arrivalDate: string;
   status: string;
 }
+export interface Seat {
+  id: number;
+  seatNumber: string;
+  status: string;
+  seatTypeId: number;
+  carriageId: number;
+  seatTypeName: string;
+  price: number;
+}
 export interface SeatType {
   id: number;
   type: string;

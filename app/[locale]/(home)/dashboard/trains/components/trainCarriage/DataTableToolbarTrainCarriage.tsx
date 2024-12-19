@@ -4,6 +4,10 @@ import { Table } from "@tanstack/react-table";
 import { Button } from "@/components/custom/Button";
 import { Input } from "@/components/ui/Input";
 import { DataTableViewOptions } from "@/components/datatable/DataTableViewOptions";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/Button";
+import { Plus } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -38,6 +42,12 @@ export function DataTableToolbarTrainCarriage<TData>({
         )}
       </div>
       <DataTableViewOptions table={table} />
+      <Link
+        href={`/dashboard/carriages/create`}
+        className={cn(buttonVariants(), " ml-7 text-xs md:text-sm")}
+      >
+        <Plus className="mr-2 h-4 w-4" /> Add New
+      </Link>
     </div>
   );
 }

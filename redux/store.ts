@@ -1,4 +1,5 @@
 import { bookingApi } from "@/services/bookingApi";
+import { seatApi } from "@/services/seatApi";
 import { carriageApi } from "@/services/carriageApi";
 import { carriageClassApi } from "@/services/carriageClassApi";
 import { passengerApi } from "@/services/passengerApi";
@@ -26,7 +27,8 @@ export const store = configureStore({
     [railwayNetworkApi.reducerPath]: railwayNetworkApi.reducer,
     [stationApi.reducerPath]: stationApi.reducer,
     [trainRouteApi.reducerPath]: trainRouteApi.reducer,
-    [bookingApi.reducerPath]: bookingApi.reducer
+    [bookingApi.reducerPath]: bookingApi.reducer,
+    [seatApi.reducerPath]: seatApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -42,6 +44,7 @@ export const store = configureStore({
       stationApi.middleware,
       trainRouteApi.middleware,
       bookingApi.middleware,
+      seatApi.middleware,
     
     )
 });
