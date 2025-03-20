@@ -1,13 +1,46 @@
+import { carriageApi } from "@/services/carriageApi";
+import { carriageClassApi } from "@/services/carriageClassApi";
+import { passengerApi } from "@/services/passengerApi";
+import { passengerTypeApi } from "@/services/passengerTypeApi";
+import { provinceApi } from "@/services/provinceApi";
+import { railwayNetworkApi } from "@/services/railwayNetworkApi";
+import { seatTypeApi } from "@/services/seatTypeApi";
+import { stationApi } from "@/services/stationApi";
 import { trainApi } from "@/services/trainApi";
+import { trainJourneyApi } from "@/services/trainJourneyApi";
+import { trainRouteApi } from "@/services/trainRoute";
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 export const store = configureStore({
   reducer: {
-    [trainApi.reducerPath]: trainApi.reducer
+    [trainApi.reducerPath]: trainApi.reducer,
+    [provinceApi.reducerPath]:provinceApi.reducer,
+    [carriageApi.reducerPath]: carriageApi.reducer,
+    [carriageClassApi.reducerPath]: carriageClassApi.reducer,
+    [passengerApi.reducerPath]: passengerApi.reducer,
+    [passengerTypeApi.reducerPath]: passengerTypeApi.reducer,
+    [trainJourneyApi.reducerPath]: trainJourneyApi.reducer,
+    [seatTypeApi.reducerPath]: seatTypeApi.reducer,
+    [railwayNetworkApi.reducerPath]: railwayNetworkApi.reducer,
+    [stationApi.reducerPath]: stationApi.reducer,
+    [trainRouteApi.reducerPath]: trainRouteApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(trainApi.middleware)
+    getDefaultMiddleware().concat(
+      trainApi.middleware,
+      provinceApi.middleware,
+      carriageApi.middleware,
+      carriageClassApi.middleware,
+      passengerApi.middleware,
+      passengerTypeApi.middleware,
+      trainJourneyApi.middleware,
+      seatTypeApi.middleware,
+      railwayNetworkApi.middleware,
+      stationApi.middleware,
+      trainRouteApi.middleware,
+    
+    )
 });
 setupListeners(store.dispatch);
 // Infer the type of store

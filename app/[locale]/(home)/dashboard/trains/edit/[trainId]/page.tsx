@@ -14,7 +14,7 @@ type PageProps = { params: { trainId: string } };
 
 export default function Page({ params: { trainId } }: PageProps) {
   // Fetch train data by ID
-  const { data, isLoading, isError } = useGetTrainByIdQuery(trainId);
+  const { data, isLoading, isError, refetch } = useGetTrainByIdQuery(trainId);
 
   // Set up the mutation hook for updating the train
   const [updateTrain] = useUpdateTrainMutation();
@@ -28,6 +28,7 @@ export default function Page({ params: { trainId } }: PageProps) {
 
       if (result?.success) {
         toast.success("Train updated successfully!", { id: "update-train" });
+        await refetch()
       } else {
         toast.error("Train update failed. Please try again.", {
           id: "update-train"
