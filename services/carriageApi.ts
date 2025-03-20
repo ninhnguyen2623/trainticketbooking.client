@@ -45,7 +45,14 @@ export const carriageApi = createApi({
         method: "DELETE"
       }),
       invalidatesTags: [{ type: "Carriage", id: "LIST" }]
-    })
+    }),
+    getCarriagesByTrainId: builder.query<ApiResponse<Carriage[]>, { trainId: string, pageNumber: number, pageSize: number }>({
+      query: ({ trainId, pageNumber, pageSize }) => ({
+        url: `/Carriage/GetCarriagesByTrainIdPagedList/train`,
+        params: { TrainId: trainId, pageNumber, pageSize }
+      }),
+      providesTags: (result) => (result ? [{ type: "Carriage", id: "LIST" }] : [])
+    }),
   })
 });
 
@@ -54,5 +61,6 @@ export const {
   useGetCarriageByIdQuery,
   useCreateCarriageMutation,
   useUpdateCarriageMutation,
-  useDeleteCarriageMutation
+  useDeleteCarriageMutation,
+  useGetCarriagesByTrainIdQuery
 } = carriageApi;

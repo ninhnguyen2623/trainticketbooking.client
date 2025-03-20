@@ -12,36 +12,26 @@ import {
 } from "@/components/ui/Form";
 import { Input } from "@/components/ui/Input";
 import { Link } from "@/i18n/routing";
-import { RailwayNetwork, Train } from "@/interfaces";
+import { PassengerType, Province, Train } from "@/interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/Select";
-import { ScrollArea } from "@/components/ui/ScrollArea";
 
 const formSchema = z.object({
   id: z.number(),
-  name: z.string().nonempty("RailwayNetwork name is required."),
-  status: z.string().nonempty("RailwayNetwork name en is required."),
+  type: z.string().nonempty("Province name is required."),
+  discountPercentage: z.number(),
 });
 
 type FormMode = "create" | "edit" | "view";
 
-export default function RailwayNetworkForm({
+export default function PassengerTypeForm({
   initialData,
   pageTitle,
   mode,
   onSubmit
 }: {
-  initialData: RailwayNetwork | null | undefined;
+  initialData: PassengerType | null | undefined;
   pageTitle: string;
   mode: FormMode;
   onSubmit: (values: z.infer<typeof formSchema>) => void;
@@ -52,8 +42,8 @@ export default function RailwayNetworkForm({
 
   const defaultValues = {
     id: initialData?.id || 0,
-    name: initialData?.name || "",
-    status: initialData?.status || "",
+    type: initialData?.type || "",
+    discountPercentage: initialData?.discountPercentage || 0,
 
   };
 
@@ -63,7 +53,6 @@ export default function RailwayNetworkForm({
   });
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-
     if (!isViewMode) {
       onSubmit(values);
     }
@@ -90,11 +79,11 @@ export default function RailwayNetworkForm({
                   name="id"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>RailwayNetwork ID</FormLabel>
+                      <FormLabel>Province ID</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder="RailwayNetwork ID"
+                          placeholder="Province ID"
                           readOnly
                           className="cursor-not-allowed"
                         />
@@ -108,14 +97,14 @@ export default function RailwayNetworkForm({
               {/* Name Field */}
               <FormField
                 control={form.control}
-                name="name"
+                name="type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>RailwayNetwork Name</FormLabel>
+                    <FormLabel>Type</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Enter RailwayNetwork name"
+                        placeholder="Enter Type"
                         readOnly={isViewMode}
                         className={isViewMode ? "cursor-not-allowed" : ""}
                       />
@@ -124,37 +113,25 @@ export default function RailwayNetworkForm({
                   </FormItem>
                 )}
               />
-              {/* Name en Field */}
               <FormField
                 control={form.control}
-                name="status"
+                name="discountPercentage"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>status</FormLabel>
+                    <FormLabel>discountPercentage</FormLabel>
                     <FormControl>
-                      <Select
-                        value={field.value?.toString()}
-                        onValueChange={(value) => {
-                          field.onChange((value)); // Gán id cho field trainId
+                      <Input
+                        {...field}
+                        type="number" // Đặt type là number
+                        placeholder="Enter discountPercentage"
+                        readOnly={isViewMode}
+                        className={isViewMode ? "cursor-not-allowed" : ""}
+                        onChange={(e) => {
+                          // Chuyển đổi giá trị đầu vào thành kiểu số
+                          const value = e.target.value ? parseFloat(e.target.value) : 0;
+                          field.onChange(value); // Cập nhật giá trị vào form
                         }}
-                        disabled={isViewMode}
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select Train" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <ScrollArea>
-                            <SelectGroup>
-                              <SelectItem value="Active">
-                                Actived
-                              </SelectItem>
-                              <SelectItem value="Failed">
-                                Failted
-                              </SelectItem>
-                            </SelectGroup>
-                          </ScrollArea>
-                        </SelectContent>
-                      </Select>
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -164,17 +141,17 @@ export default function RailwayNetworkForm({
             </div>
 
             <div className="flex space-x-4">
-              <Link href="/dashboard/railway-networks">
+              <Link href="/dashboard/passenger-types">
                 <Button variant="secondary">Back</Button>
               </Link>
               {!isViewMode && (
                 <Button type="submit">
-                  {isCreateMode ? "Create RailwayNetwork" : "Update RailwayNetwork"}
+                  {isCreateMode ? "Create Province" : "Update Province"}
                 </Button>
               )}
 
               {isViewMode && (
-                <Link href={`/dashboard/railway-networks/edit/${defaultValues.id}`}>
+                <Link href={`/dashboard/passenger-types/edit/${defaultValues.id}`}>
                   <Button variant="destructive">Swicth Update</Button>
                 </Link>
               )}

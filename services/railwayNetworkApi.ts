@@ -10,19 +10,19 @@ export const railwayNetworkApi = createApi({
   endpoints: (builder) => ({
     getPagedListRailwayNetwork: builder.query<ApiResponse<RailwayNetwork[]>, ApiParams>({
       query: ({ pageNumber, pageSize }) => ({
-        url: "RailwayNetwork/paged",
+        url: "RailwayNetwork/GetRailwayNetworksPagedList",
         params: { pageNumber, pageSize }
       }),
       providesTags: (result) => (result ? [{ type: "RailwayNetwork", id: "LIST" }] : []) // Return a LIST tag
     }),
 
     getRailwayNetworkById: builder.query<ApiResponse<RailwayNetwork>, string>({
-      query: (id) => ({ url: `/RailwayNetwork/${id}` })
+      query: (id) => ({ url: `RailwayNetwork/GetRailwayNetworkById/${id}` })
     }),
 
     createRailwayNetwork: builder.mutation<ApiResponse<RailwayNetwork>, RailwayNetwork>({
       query: (RailwayNetwork) => ({
-        url: "/RailwayNetwork",
+        url: "RailwayNetwork/CreateRailwayNetwork",
         method: "POST",
         body: RailwayNetwork
       }),
@@ -31,7 +31,7 @@ export const railwayNetworkApi = createApi({
     
     updateRailwayNetwork: builder.mutation<ApiResponse<RailwayNetwork>, RailwayNetwork>({
       query: ( body ) => ({
-        url: `/RailwayNetwork/${body.id}`,
+        url: `/RailwayNetwork/UpdateRailwayNetwork/${body.id}`,
         method: "PUT",
         body
       }),
@@ -40,7 +40,7 @@ export const railwayNetworkApi = createApi({
 
     deleteRailwayNetwork: builder.mutation<ApiResponse<RailwayNetwork>, number>({
       query: (id) => ({
-        url: `/RailwayNetwork/${id}`,
+        url: `/RailwayNetwork/DeleteRailwayNetwork/${id}`,
         method: "DELETE"
       }),
       invalidatesTags: [{ type: "RailwayNetwork", id: "LIST" }]

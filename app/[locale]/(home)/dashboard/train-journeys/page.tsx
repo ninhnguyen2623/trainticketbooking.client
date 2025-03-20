@@ -9,8 +9,6 @@ import { searchParamsCache, serialize } from "@/lib/searchparams";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
 import { SearchParams } from "nuqs/parsers";
-import { DataTable } from "./components/DataTable";
-import { columns } from "./components/columns";
 import { Link } from "@/i18n/routing";
 import { useGetPagedListTrainJourneyQuery, useGetTrainsWithJourneysQuery } from "@/services/trainJourneyApi";
 import { useEffect, useState } from "react";

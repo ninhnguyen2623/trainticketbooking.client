@@ -8,7 +8,7 @@ import { Tabs } from 'antd';
 import { DataTableTrainCarriage } from '@/app/[locale]/(home)/dashboard/trains/components/trainCarriage/DataTableTrainCarriage'
 import { DataTableTrainRoute } from '@/app/[locale]/(home)/dashboard/trains/components/trainRoute/DataTableTrainRoute'
 import { trainRouteColumns } from "../../components/trainRoute/trainRouteColumns";
-import { useGetPagedListCarriageQuery } from "@/services/carriageApi";
+import { useGetCarriagesByTrainIdQuery, useGetPagedListCarriageQuery } from "@/services/carriageApi";
 import { useEffect, useState } from "react";
 import { Carriage } from "@/interfaces";
 import { max } from "date-fns";
@@ -26,18 +26,17 @@ export default function Page({ params: { trainId } }: PageProps) {
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 1000
+    pageSize: 20
   });
   const { data: datalistTrainCarriage, isFetching } = useGetPagedListCarriageQuery({
     pageNumber: pagination.pageIndex + 1,
     pageSize: pagination.pageSize
   });
-  // get data carriage by train id
-  const getCarriagesByTrainId = (datalist: Carriage[] | undefined, trainId: number): Carriage[] => {
-    if (!datalist) return [];
-    return datalist.filter((item) => item.trainId === trainId);
-  };
-  const listCarriageByTrainId = getCarriagesByTrainId(datalistTrainCarriage?.data || [], parseInt(trainId));
+  const { data: listCarriageByTrainId, isFetching: fetchingTrain } = useGetCarriagesByTrainIdQuery({
+    trainId: trainId,
+    pageNumber: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize
+  })
 
   const onChange = (key: string) => {
     console.log(key);
@@ -58,7 +57,7 @@ export default function Page({ params: { trainId } }: PageProps) {
       key: '2',
       label: 'Carriage Train',
       children: <DataTableTrainCarriage
-        data={listCarriageByTrainId}
+        data={listCarriageByTrainId?.data || []}
         columns={trainCarriageColumns}
         totalItems={datalistTrainCarriage?.totalItems || 0}
         pagination={pagination}

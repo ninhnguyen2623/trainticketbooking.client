@@ -15,14 +15,7 @@ export interface CarriageClass{
   id: number;
   name: string;
 }
-export interface Passenger{
-  id: number;
-  fullName: string;
-  passengerTypeId: number;
-  identityCardNumber: string;
-  passengerTypeName: string;
-  discountPercentage: number;
-}
+
 export interface PassengerType{
   id: number;
   type: string;
@@ -35,6 +28,15 @@ export interface TrainJourney {
   departureDate: string;
   arrivalDate: string;
   status: string;
+}
+export interface Seat {
+  id: number;
+  seatNumber: string;
+  status: string;
+  seatTypeId: number;
+  carriageId: number;
+  seatTypeName: string;
+  price: number;
 }
 export interface SeatType {
   id: number;
@@ -83,4 +85,72 @@ export interface Carriage {
 export interface ApiParams {
   pageNumber: number;
   pageSize: number;
+}
+export interface Booking {
+  id: number;
+  bookingTime: string; // ISO 8601 date string
+  totalPrice: number;
+  startStationCode: string; // ISO 8601 date string
+  startStation: string;
+  startStationId:number;
+  endStationId: number; // ISO 8601 date string
+  endStationCode:string
+  endStation: string;
+  status: string; // Adjust this to an enum if the statuses are predefined
+  departureDate: string; // ISO 8601 date string
+  tickets: Ticket[];
+}
+
+export interface Ticket {
+  ticketId: number;
+  price: number;
+  bookingDate: string; // ISO 8601 date string
+  departureDate: string; // ISO 8601 date string
+  status: string; // Adjust this to an enum if the statuses are predefined
+  seatId: number;
+  seatNumber: string;
+  seatType: string;
+  carriageName: string;
+  trainId: number;
+  trainName: string;
+  startStationName: string;
+  endStationName: string;
+  isDeparture: boolean;
+  passenger: Passenger;
+  seatReturnId: number;
+  seatReturnPrice: number;
+  seatReturnDepartureDate: string;
+
+}
+export interface Passenger2 {
+  passengerId: number;
+  fullName: string;
+  identityCardNumber: string;
+  passengerType: string; // Adjust this to an enum if the types are predefined
+}
+export class Passenger {
+  id: number;
+  passengerId: number;
+  fullName: string;
+  passengerTypeId: number;
+  identityCardNumber: string;
+  passengerTypeName: string;
+  discountPercentage: number;
+
+  constructor(
+    id: number,
+    fullName: string,
+    passengerTypeId: number,
+    identityCardNumber: string,
+    passengerTypeName: string,
+    discountPercentage: number
+  ) {
+    this.id = id;
+    this.passengerId = id; // passengerId tự động bằng id
+    this.fullName = fullName;
+    this.passengerTypeId = passengerTypeId;
+    this.identityCardNumber = identityCardNumber;
+    this.passengerTypeName = passengerTypeName;
+    this.discountPercentage = discountPercentage;
+  }
 }

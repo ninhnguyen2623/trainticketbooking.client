@@ -25,7 +25,7 @@ export default function Page({ searchParams }: pageProps) {
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 20
+    pageSize: 10
   });
 
   const { data, isFetching } = useGetPagedListTrainQuery({
