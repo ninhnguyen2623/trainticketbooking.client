@@ -40,10 +40,10 @@ Filter train
 ![Image](https://github.com/user-attachments/assets/f3ac7060-98ef-4642-a2ca-a9dc1708c51b)
 ![Image](https://github.com/user-attachments/assets/3167213e-4c2d-4ea9-b388-84bccc9a7bb2)
 
-Choose a car, choose a chair
+Choose a chair in train
 ![Image](https://github.com/user-attachments/assets/18602689-ee95-47e0-afe1-20bef497043c)
 
-Select beg
+Choose bed in train
 ![Image](https://github.com/user-attachments/assets/9d58727a-88e1-4887-a228-517f27b5f9fa)
 ![Image](https://github.com/user-attachments/assets/b1f3fc13-3e11-44a9-91a3-0e760fb3346b)
 
