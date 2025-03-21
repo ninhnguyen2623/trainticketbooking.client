@@ -1,7 +1,7 @@
 # TrainTicketBooking (Teamsize: 2)
 Dự án Hệ thống bán vé tàu hỏa trực tuyến là một nền tảng giúp hành khách dễ dàng đặt vé tàu, tra cứu lịch trình, và thanh toán trực tuyến một cách thuận tiện. Hệ thống giúp cải thiện quy trình đặt vé, giảm thiểu thời gian xếp hàng tại ga và tối ưu hóa quản lý chỗ ngồi.
 ## Role: 
-frontend
+Frontend
 ## Công nghệ được sử dụng:
 -	Frontend: NextJS, TypeScript , Shadcn/UI , TailwindCSS, Sass, Redux Toolkit (state management, API requests) <br>
 -	Backend: .NET (API integration for train data and booking logic).
